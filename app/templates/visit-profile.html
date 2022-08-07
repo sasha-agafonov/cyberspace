@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% set active_page = "friends" %}
+{% block content %}
+
+<div id="roller">
+  <table class="profile-header">
+    <tr>
+      <td class="profile-picture-container">
+        <img src="../static/images/user.png" alt="failed to display" class="profile-picture"/>
+      </td>
+      <td class="profile-header-section">
+        <div class="profile-name">
+          {{ model.name }} {{ model.surname }}
+        </div>
+        <div class="profile-info">
+          {{ model.description }}<br />
+        </div>
+        <div class="profile-counters">
+          <div class="profile-buttons">
+            <div class = "{{ 'counters-other' if followed == 0 else 'counters-other-new' }} ">
+              {{ model.followers }} Followers &nbsp; &nbsp;
+              {{ model.following }} Following
+            </div>
+            {% if followed == 1 %}
+              <input type="button" class="profile-button" value="FOLLOW" onclick = "location.href='/follow?id={{model.id}}';">
+            {% else %}
+              <input type="button" class="profile-button-inactive" value="FOLLOWING THIS USER &#10004;" >
+              <input type="button" class="profile-button" value="UNFOLLOW" onclick = "location.href='/unfollow?id={{model.id}}';">
+            {% endif %}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="profile-area">
+  {% if model.np == 0 %}
+    <div class="profile-notif">
+      Nothing to display yet
+    </div>
+  {% else %}
+    {% for post in model.posts|reverse %}
+      <div class="post-container">
+        <div class="post-head">
+          <div class="post-picture-container">
+            <img src="../static/images/user.png"alt="failed to display" class="post-picture"/>
+          </div>
+          <div class="post-info-container">
+            {{ model.name }}
+            {{ model.surname }}
+            <div class="date">
+              {{ post.date }}
+            </div>
+          </div>
+        </div>
+        <div class="post-description">
+          {{post.description}}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

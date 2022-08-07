@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% set active_page = "friends" %}
+{% block content %}
+<div id="roller">
+  {% if model.following != 0 %}
+    <div class="people">
+      <div class="section-title">
+        You are following:
+      </div>
+      {% for m in fg %}
+        {% if m.this_id == model.id %}
+          {% set current = m.other_id%}
+          <div class="person">
+            <img src="../static/images/user.png" height="20px" width="20px" class="small-icon" alt="unable to display" />
+              &nbsp;
+              <a class="person-link" href='/visit?id={{m.other_id}}'>
+                {% for a in models %}
+                  {% if a.id == current %}
+                    {{ a.name }}
+                    {{ a.surname }}
+                  {% endif %}
+                {% endfor %}
+              </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="people">
+      <div class="section-title">
+        You are not following anybody yet
+      </div>
+    </div>
+  {% endif %}
+
+  {% if model.followers != 0 %}
+    <div class="people">
+      <div class="section-title">
+         Your followers:
+      </div>
+      {% for m in fs %}
+        {% if m.other_id == model.id %}
+          {% set current = m.this_id%}
+          <div class="person">
+            <img src="../static/images/user.png" height="20px" width="20px" class="small-icon" alt="unable to display" />
+              &nbsp;
+              <a class="person-link" href='/visit?id={{m.this_id}}'>
+                {% for a in models %}
+                  {% if a.id == current %}
+                    {{ a.name }}
+                    {{ a.surname }}
+                  {% endif %}
+                {% endfor %}
+              </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="people">
+      <div class="section-title">
+        You don't have any followers yet
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="people">
+    <div class="section-title">
+      All people:
+    </div>
+    {% for m in models %}
+      {% if m != model %}
+        <div class="person">
+          <img src="../static/images/user.png" height="20px" width="20px" class="small-icon" alt="unable to display" />
+            &nbsp;
+          <a class="person-link" href='/visit?id={{m.id}}'>
+            {{ m.name }}
+            {{ m.surname }}
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

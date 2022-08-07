@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% set active_page = "profile" %}
+{% block content %}
+<div id="roller">
+  <div class="edit-fields">
+    <div class="sh">
+        Edit your profile details below:
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          {% for message in messages %}
+          <div class="flash">
+            {{ message }}
+          </div>
+          {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form action="" method="post" class="login-form">
+      {{ form.hidden_tag() }}
+        <p>
+          {{ form.name(class="ffw") }}<br>
+        </p>
+        <p>
+          {{ form.surname(class="ffw") }}
+        </p>
+        <p>
+          {{ form.description(class="taw")}}
+        </p>
+        <p><input type="submit" value="APPLY CHANGES" class="return-button"></p>
+    </form>
+    <a class="back-link" href="/profile"> Back to profile </a>
+  </div>
+</div>
+{% endblock %}

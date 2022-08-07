@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% set active_page = "profile" %}
+{% block content %}
+<div id="roller">
+  <div class="edit-fields">
+    <div class="sh">
+        Create a new post below:
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          {% for message in messages %}
+          <div class="flash">
+            {{ message }}
+          </div>
+          {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form action="" method="post" class="login-form">
+      {{ form.hidden_tag() }}
+        <p>
+          {{ form.description(class="taw") }}
+        </p>
+        <p><input type="submit" value="CREATE POST" class="return-button"></p>
+    </form>
+
+  <a class="back-link" href="/profile"> Back to profile </a>
+  </div>
+</div>
+{% endblock %}
